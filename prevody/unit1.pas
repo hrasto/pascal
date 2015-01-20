@@ -1,0 +1,121 @@
+unit Unit1;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls;
+
+type
+
+  { TForm1 }
+
+  TForm1 = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Edit1: TEdit;
+    Memo1: TMemo;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+  private
+    { private declarations }
+  public
+    { public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.lfm}
+var x:string;
+procedure pacni(s:string);
+          begin
+              Form1.Memo1.Lines.Add(s);
+          end;
+procedure zmaz();
+          begin
+              Form1.memo1.lines.clear();
+          end;
+function doBinarnej(x:string):string;
+         var y,i:integer;
+         var vysledok:string;
+           begin
+               vysledok:='00000000';
+               y:=StrToIntDef(x,0);
+               for i:=8 downto 1 do
+                   begin
+                     if((y mod 2)=1) then vysledok[i]:='1';
+                     if((y mod 2)=0) then vysledok[i]:='0';
+                     y:=y div 2;
+                   end;
+               Result:=vysledok;
+           end;
+function doDesiatkovej(s:string):string;
+         var i1,x,vysledok:integer;
+         begin
+            vysledok:=0;
+            x:=128;
+            for i1:=1 to 8 do
+                begin
+                  if((ord(s[i1]))=49) then
+                     begin
+                       vysledok := vysledok+x;
+                     end;
+                  x:=x div 2;
+                end;
+            result:=inttostr(vysledok);
+         end;
+function binarne(s:string):boolean;
+         var i,check:integer;
+           begin
+              check:=0;
+              for i:=1 to length(s) do
+                  begin
+                     if not((ord(s[i])=48) or (ord(s[i])=49)) then check:=1;
+                  end;
+              if (check=0) then
+                 result:=true
+              else
+                 result:=false;
+           end;
+
+{ TForm1 }
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+    x:=form1.edit1.Text;
+    if((strtointdef(x,0) < 256) and (strtointdef(x,0) >= 0)) then
+       pacni(x+' -> '+doBinarnej(x))
+    else
+      pacni('Zadaj cislo z intervalu [0;255]');
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+  x:=form1.edit1.text;
+  if((length(x)=8) and (binarne(x)))then
+      pacni(x+' -> '+doDesiatkovej(x))
+  else
+      pacni('Zadaj 8 cifier dlhe binarne cislo.');
+
+
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  zmaz();
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  zmaz();
+end;
+
+end.
+

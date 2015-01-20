@@ -1,0 +1,135 @@
+object Form1: TForm1
+  Left = 175
+  Height = 368
+  Top = -913
+  Width = 274
+  Caption = 'Form1'
+  ClientHeight = 368
+  ClientWidth = 274
+  OnCreate = FormCreate
+  LCLVersion = '1.2.4.0'
+  object Memo1: TMemo
+    Left = 10
+    Height = 154
+    Top = 168
+    Width = 256
+    Lines.Strings = (
+      'Memo1'
+    )
+    ScrollBars = ssVertical
+    TabOrder = 0
+  end
+  object Edit1: TEdit
+    Left = 9
+    Height = 23
+    Top = 40
+    Width = 80
+    TabOrder = 1
+    Text = 'Nick'
+  end
+  object Edit2: TEdit
+    Left = 94
+    Height = 23
+    Top = 40
+    Width = 80
+    TabOrder = 2
+    Text = 'Vek'
+  end
+  object Button1: TButton
+    Left = 10
+    Height = 25
+    Top = 72
+    Width = 80
+    Caption = 'Pridaj'
+    OnClick = Button1Click
+    TabOrder = 3
+  end
+  object Button2: TButton
+    Left = 8
+    Height = 25
+    Top = 136
+    Width = 80
+    Caption = 'Zoznam'
+    OnClick = Button2Click
+    TabOrder = 4
+  end
+  object Button3: TButton
+    Left = 96
+    Height = 25
+    Top = 104
+    Width = 80
+    Caption = 'Hladaj vek'
+    OnClick = Button3Click
+    TabOrder = 5
+  end
+  object Button4: TButton
+    Left = 96
+    Height = 25
+    Top = 72
+    Width = 78
+    Caption = 'Hladaj nick'
+    OnClick = Button4Click
+    TabOrder = 6
+  end
+  object Button5: TButton
+    Left = 96
+    Height = 25
+    Top = 136
+    Width = 80
+    Caption = 'Hladaj oboje'
+    OnClick = Button5Click
+    TabOrder = 7
+  end
+  object Button6: TButton
+    Left = 181
+    Height = 25
+    Top = 136
+    Width = 81
+    Caption = 'Zmaz memo'
+    OnClick = Button6Click
+    TabOrder = 8
+  end
+  object Button7: TButton
+    Left = 10
+    Height = 25
+    Top = 104
+    Width = 80
+    Caption = 'Vygeneruj'
+    OnClick = Button7Click
+    TabOrder = 9
+  end
+  object Label1: TLabel
+    Left = 9
+    Height = 15
+    Top = 18
+    Width = 27
+    Caption = 'Nick:'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 96
+    Height = 15
+    Top = 18
+    Width = 22
+    Caption = 'Vek:'
+    ParentColor = False
+  end
+  object Button8: TButton
+    Left = 181
+    Height = 25
+    Top = 72
+    Width = 80
+    Caption = 'Zmaz osoby'
+    OnClick = Button8Click
+    TabOrder = 10
+  end
+  object Button9: TButton
+    Left = 181
+    Height = 25
+    Top = 104
+    Width = 78
+    Caption = 'Zmaz nick'
+    OnClick = Button9Click
+    TabOrder = 11
+  end
+end

@@ -1,0 +1,115 @@
+unit Unit1;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls;
+
+type
+
+  { TForm1 }
+
+  TForm1 = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Edit1: TEdit;
+    Memo1: TMemo;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+  private
+    { private declarations }
+  public
+    { public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.lfm}
+var sifra,veta:string;
+procedure zmaz();
+          begin
+            Form1.Memo1.Lines.Clear();
+            Form1.Edit1.Text:='';
+          end;
+function zasifruj(veta:string):string;
+var i:integer;
+var sifra,part:string;
+         begin
+           sifra:='';
+           part:='';
+           for i:=1 to length(veta) do
+               begin
+                   part:=IntToStr(ord(veta[i]));
+                   if(length(part) = 1)then part:='00'+part;
+                   if(length(part) = 2)then part:='0'+part;
+                   sifra := sifra + part;
+               end;
+           Result:=sifra;
+         end;
+function desifruj(sifra:string):string;
+var i,kontrola:integer;
+var veta,part:string;
+  begin
+       kontrola:=0;
+
+       if ((not((length(sifra) mod 3)=0)) and (not(
+           (veta[i]='0') or
+           (veta[i]='1') or
+           (veta[i]='2') or
+           (veta[i]='3') or
+           (veta[i]='4') or
+           (veta[i]='5') or
+           (veta[i]='6') or
+           (veta[i]='7') or
+           (veta[i]='8') or
+           (veta[i]='9')
+           )))then kontrola:=1;
+        if(kontrola = 0) then
+            begin
+               veta:='';
+               for i:=1 to (length(sifra)div 3) do
+                   begin
+                      part:=sifra[(i*3)-2]+sifra[(i*3)-1]+sifra[i*3];
+                      if((part[2]='0') and (part[1]='0'))then delete(part,1,2);
+                      if((part[1]='0') and (not(part[2]='0')))then delete(part,1,1);
+                      if(
+                         (StrToInt(part[1])>2) and
+                         (StrToInt(part[2])>5) and
+                         (StrToInt(part[3])>5)
+                         )then delete(part,1,1);
+                   end;
+            begin
+                Result := '';
+            end;
+  end;
+
+{ TForm1 }
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  veta := Form1.Edit1.Text;
+  sifra := zasifruj(veta);
+  Form1.Memo1.Lines.Add(sifra);
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  zmaz();
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+  sifra := Form1.Edit1.Text;
+  veta := desifruj(sifra);
+  Form1.Memo1.Lines.Add(veta);
+end;
+
+end.
+

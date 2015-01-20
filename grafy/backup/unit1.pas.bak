@@ -1,0 +1,164 @@
+unit Unit1;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls;
+
+type
+
+  { TForm1 }
+
+  TForm1 = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+  private
+    { private declarations }
+  public
+    { public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.lfm}
+const
+   sirka = 320;
+   vyska = 240;
+   sirkaPera = 2;
+type
+    TParametre = Record
+      koef,prem,exp,konst:integer;
+    end;
+var
+  par:TParametre;
+{function check(x:string):integer;
+          var res:integer;
+          begin
+            res:=4;
+            if(((ord(x)>60)and(ord(x)<91))or((ord(x)>96)and(ord(x)<123)))then
+               res:=1;
+            if((ord(x)>47)and(ord(x)<58))then
+               res:=2;
+            if((x='+')or(x='-')or(x='*')or(x='/'))then
+               res:=3;
+            Result:=res;
+          end;}
+function konst():integer;
+         begin
+           result:=StrToIntDef(form1.Edit4.Text,0);
+         end;
+function koef():integer;
+         begin
+           result:=StrToIntDef(form1.edit1.text,0);
+         end;
+function prem():integer;
+         begin
+            result:=StrToIntDef(form1.Edit2.text,0);
+         end;
+function exp():integer;
+         begin
+            result:=StrToIntDef(form1.edit3.text,0);
+         end;
+procedure nacitaj();
+          begin
+            par.koef:=koef;
+            par.prem:=prem;
+            par.konst:=konst;
+            par.exp:=1;
+          end;
+procedure osi();
+          begin
+             form1.canvas.line((form1.Width div 2),0,(form1.Width div 2),form1.Height);
+             form1.canvas.line(0,(form1.height div 2),form1.Width,(form1.height div 2));
+          end;
+
+procedure nakresli();
+          var x,i,y:integer;
+          begin
+             for i:=1 to form1.width do
+                 begin
+                   x:=(-1)*(form1.width div 2)+i;
+                   y:=(form1.height div 2)-((koef*(x+prem))+konst);
+                   form1.canvas.line(i,y,i,y);
+                 end;
+          end;
+
+procedure zmaz();
+          var x,y:integer;
+          begin
+            {for x:=1 to sirka do
+                begin
+                  for y:=1 to vyska do
+                      begin
+                        if((x=(sirka div 2))or(y=(vyska div 2)))then
+                           begin
+                              form1.Canvas.pen.color:=clGray;
+                              form1.canvas.Line(x,y,x,y);
+                           end
+                        else
+                            begin
+                               form1.canvas.pen.color:=clWhite;
+                               form1.canvas.Line(x,y,x,y);
+                            end;
+                      end;
+                end;}
+             form1.canvas.pen.color:=clWhite;
+             nakresli;
+             par.exp:=0;
+             par.koef:=0;
+             par.konst:=0;
+             par.prem:=0;
+          end;
+
+{ TForm1 }
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  form1.Canvas.Pen.Width:=sirkaPera;
+  form1.Width:=sirka;
+  form1.Height:=vyska+50;
+  zmaz();
+  form1.button1.caption:='Kresli';
+  form1.button2.caption:='Zmaz';
+end;
+
+procedure TForm1.FormResize(Sender: TObject);
+begin
+  form1.Canvas.pen.color:=clGray;
+  osi;
+  form1.canvas.pen.color:=clWhite;
+  nakresli;
+  nacitaj;
+  form1.canvas.pen.color:=clBlack;
+  nakresli;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  form1.Canvas.pen.color:=clGray;
+  osi;
+  form1.Canvas.pen.color:=clBlack;
+  nacitaj;
+  nakresli;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+   zmaz();
+end;
+
+end.
+

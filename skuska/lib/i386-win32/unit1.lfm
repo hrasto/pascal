@@ -1,0 +1,21 @@
+object Form1: TForm1
+  Left = 265
+  Height = 240
+  Top = 155
+  Width = 320
+  Caption = 'Form1'
+  ClientHeight = 240
+  ClientWidth = 320
+  OnClick = FormClick
+  OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
+  OnKeyUp = FormKeyUp
+  LCLVersion = '1.2.4.0'
+  object Label1: TLabel
+    Left = 72
+    Height = 1
+    Top = 144
+    Width = 1
+    ParentColor = False
+  end
+end

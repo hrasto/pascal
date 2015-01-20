@@ -1,0 +1,55 @@
+object Form1: TForm1
+  Left = 170
+  Height = 240
+  Top = 153
+  Width = 326
+  Caption = 'Form1'
+  ClientHeight = 240
+  ClientWidth = 326
+  LCLVersion = '1.2.4.0'
+  object Edit1: TEdit
+    Left = 10
+    Height = 23
+    Top = 10
+    Width = 304
+    TabOrder = 0
+    Text = 'Edit1'
+  end
+  object Button1: TButton
+    Left = 80
+    Height = 25
+    Top = 168
+    Width = 75
+    Caption = 'Zasifruj'
+    OnClick = Button1Click
+    TabOrder = 1
+  end
+  object Button2: TButton
+    Left = 239
+    Height = 25
+    Top = 168
+    Width = 75
+    Caption = 'Zmaz'
+    OnClick = Button2Click
+    TabOrder = 2
+  end
+  object Memo1: TMemo
+    Left = 10
+    Height = 120
+    Top = 40
+    Width = 304
+    Lines.Strings = (
+      'Memo1'
+    )
+    TabOrder = 3
+  end
+  object Button3: TButton
+    Left = 160
+    Height = 25
+    Top = 168
+    Width = 75
+    Caption = 'Desifruj'
+    OnClick = Button3Click
+    TabOrder = 4
+  end
+end

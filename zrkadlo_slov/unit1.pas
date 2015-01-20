@@ -1,0 +1,91 @@
+unit Unit1;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls;
+
+type
+
+  { TForm1 }
+
+  TForm1 = class(TForm)
+    Button1: TButton;
+    Edit1: TEdit;
+    Memo1: TMemo;
+    procedure Button1Click(Sender: TObject);
+  private
+    { private declarations }
+  public
+    { public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.lfm}
+var veta,veta2:string;
+var i:integer;
+function slovoX(x:integer;s:string):string;
+         var pocetSlov,i:integer;
+         var slovo:string;
+         begin
+              i:=1;
+              pocetSlov := 0;
+              slovo:='';
+              for i:=i to length(s) do
+                  begin
+                    if ((ord(s[i-1])=32) or (i=1)) then pocetSlov := pocetSlov+1;
+                    if (pocetSlov = x) then
+                       begin
+                          if not(ord(s[i])=32) then slovo:=slovo+s[i];
+                       end;
+                  end;
+              result:=slovo;
+
+         end;
+function pocetSlov(veta:string):integer;
+         var i, pocet:integer;
+         begin
+              pocet:=0;
+            for i:=1 to length(veta) do
+                begin
+                  // ak je pismeno medzera
+                  if (ord(veta[i]) = 32) then pocet := pocet+1;
+                  // ak je nula slov a pismeno neni medzera, aby zapocitalo aj prve slovo
+                  if ((pocet = 0) and (not(ord(veta[i])=32))) then pocet:=pocet+1;
+                end;
+            result:=pocet;
+         end;
+function medzery(s:string):string;
+         begin
+            while (ord(s[1])=32) do
+                  begin
+                    Delete(s,1,1);
+                  end;
+            while (ord(s[length(s)]) = 32) do
+                  begin
+                    Delete(s,length(s),1);
+                  end;
+            Result := s;
+         end;
+
+{ TForm1 }
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+     veta2 :='';
+     veta := medzery(Form1.Edit1.Text);
+     for i:= pocetSlov(veta) downto 1 do
+         begin
+           veta2:= veta2+ slovoX(i,veta)+' ';
+         end;
+     Form1.Memo1.Lines.Add(veta2);
+end;
+
+end.
+
